@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Belal Mohammad - Cinematic Video Creator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.6;
+            color: #e0e0e0;
+            background-color: #000;
+            overflow-x: hidden;
+        }
+        h1, h2, h3 {
+            font-family: 'Playfair Display', serif;
+            color: #fff;
+        }
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 1rem 0;
+            z-index: 1000;
+            transition: background 0.3s;
+        }
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+        }
+        nav a {
+            color: #e0e0e0;
+            font-weight: 300;
+            transition: color 0.3s;
+        }
+        nav a:hover {
+            color: #fff;
+        }
+        /* Hero Section */
+        #hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://i.postimg.cc/WpSq5nFR/Screenshot-2025-10-10-at-10-51-16-PM.png') center/cover; /* Replace with your hero image/video still */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        #hero h1 {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+        #hero p {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            opacity: 0;
+            animation: fadeInUp 1s ease 0.5s forwards;
+        }
+        #hero button {
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 1rem 2rem;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+            opacity: 0;
+            animation: fadeInUp 1s ease 1s forwards;
+        }
+        #hero button:hover {
+            background: #555;
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Sections */
+        section {
+            padding: 5rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        h2 {
+            text-align: center;
+            font-size: 3rem;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+        h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: #fff;
+            margin: 1rem auto;
+        }
+        /* About Section */
+        #about {
+            background: #111;
+        }
+        #about p {
+            font-size: 1.2rem;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+        }
+        /* Services Section */
+        #services {
+            background: #000;
+        }
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .service-item {
+            background: #222;
+            padding: 2rem;
+            text-align: center;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        .service-item:hover {
+            transform: translateY(-10px);
+        }
+        .service-item h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        /* Portfolio Section */
+        #portfolio {
+            background: #111;
+        }
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .portfolio-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+        }
+        .portfolio-item img, .portfolio-item video {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+        .portfolio-item:hover img, .portfolio-item:hover video {
+            transform: scale(1.1);
+        }
+        .portfolio-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .portfolio-item:hover .portfolio-overlay {
+            opacity: 1;
+        }
+        .portfolio-overlay a {
+            background: #fff;
+            color: #000;
+            padding: 1rem 2rem;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        /* Equipment Section */
+        #equipment {
+            background: #000;
+        }
+        .equipment-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .equipment-item {
+            background: #222;
+            padding: 1.5rem;
+            text-align: center;
+            border-radius: 10px;
+        }
+        .equipment-item img {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            margin-bottom: 1rem;
+            border-radius: 50%;
+        }
+        /* Contact Section */
+        #contact {
+            background: #111;
+            text-align: center;
+        }
+        form {
+            max-width: 600px;
+            margin: 2rem auto;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        input, textarea {
+            padding: 1rem;
+            border: 1px solid #333;
+            background: #222;
+            color: #e0e0e0;
+            border-radius: 5px;
+        }
+        button[type="submit"] {
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 1rem;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button[type="submit"]:hover {
+            background: #555;
+        }
+        .social-links {
+            margin-top: 2rem;
+        }
+        .social-links a {
+            display: inline-block;
+            margin: 0 1rem;
+            font-size: 1.5rem;
+            transition: color 0.3s;
+        }
+        .social-links a:hover {
+            color: #555;
+        }
+        /* Footer */
+        footer {
+            background: #000;
+            text-align: center;
+            padding: 1rem;
+            border-top: 1px solid #333;
+        }
+        /* Responsive */
+        @media (max-width: 768px) {
+            #hero h1 { font-size: 2.5rem; }
+            #hero p { font-size: 1.2rem; }
+            nav ul { gap: 1rem; }
+            section { padding: 3rem 1rem; }
+        }
+        /* Smooth Scroll */
+        html { scroll-behavior: smooth; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#portfolio">Portfolio</a></li>
+            <li><a href="#equipment">Equipment</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <h1>Belal Mohammad</h1>
+        <p>Cinematic Video Creator | Shooting, Editing, Producing & More</p>
+        <button onclick="document.getElementById('about').scrollIntoView();">Discover My Work</button>
+    </section>
+
+    <!-- About Section -->
+    <section id="about">
+        <h2>About Me</h2>
+        <p>
+            My name is Bilal Mohammed, 1998. Bachelor's degree in Media and was among the top graduates in my department. I am interested in content creation and in bringing a unique style to cinematography and color grading. I have received several accredited certificates related to my field, including one from Al Jazeera in sound, another from Kurdish journalism, and a certificate for ranking first in my department and among the top students at Cihan University in Erbil. I have experience in video shooting, color grading, and editing, with a tendency toward cinematic style.
+        </p>
+        <!-- Add your photo here -->
+        <img src="https://i.postimg.cc/q7njKYvb/er.jpg" alt="Your Photo" style="display: block; margin: 2rem auto; border-radius: 50%; width: 200px; height: 200px; object-fit: cover;">
+    </section>
+
+    <!-- Services Section -->
+    <section id="services">
+        <h2>Services</h2>
+        <div class="services-grid">
+            <div class="service-item">
+                <h3>Shooting</h3>
+                <p>Capturing stunning visuals with a cinematic eye, using professional cameras and lighting to tell your story.</p>
+            </div>
+            <div class="service-item">
+                <h3>Post-Production</h3>
+                <p>Seamless editing to polish your footage, adding effects, color grading, and pacing for maximum impact.</p>
+            </div>
+            <div class="service-item">
+                <h3>Scriptwriting</h3>
+                <p>Developing creative concepts, writing engaging scripts, and brainstorming innovative narratives tailored to your needs.</p>
+            </div>
+            <div class="service-item">
+                <h3>Storyboarding</h3>
+                <p>Visual planning through detailed storyboards to map out shots and ensure a cohesive production flow.</p>
+            </div>
+            <div class="service-item">
+                <h3>Production Management</h3>
+                <p>Full project production from pre-production to delivery, handling logistics, teams, and timelines.</p>
+            </div>
+            <div class="service-item">
+                <h3>Sound Engineering</h3>
+                <p>Expert audio design, mixing, and mastering to create immersive soundscapes that elevate your videos.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Portfolio Section -->
+    <section id="portfolio">
+        <h2>Portfolio</h2>
+        <div class="portfolio-grid">
+            <!-- Add your works here - Replace with your image/video URLs -->
+            <div class="portfolio-item">
+                <img src="https://i.postimg.cc/ZRCZjYYh/Screenshot-2025-10-11-at-4-09-12-AM.png" alt="">
+                <div class="portfolio-overlay">
+                    <a href="https://www.instagram.com/reel/DPAGh6qCF12/?utm_source=ig_web_copy_link&igsh=MXJqdW4xb3dzbzdleQ==" target="_blank">Watch Video</a>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://i.postimg.cc/15MCRGr4/Screenshot-2025-10-11-at-4-15-29-AM.png" muted loop> <!-- Or use <img> for thumbnail -->
+                </video>
+                <div class="portfolio-overlay">
+                    <a href="https://www.instagram.com/reel/DOBwioLjZas/?utm_source=ig_web_copy_link&igsh=aGt1Zmh3enBlN3Bi" target="_blank">View Project</a>
+                </div>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://i.postimg.cc/Jh3RtY6t/Screenshot-2025-10-11-at-4-03-25-AM.png" alt="Project1">
+                <div class="portfolio-overlay">
+                    <a href="https://www.instagram.com/reel/DN3k3aq2olc/?utm_source=ig_web_copy_link&igsh=MjRiZmNmeXB1OXY4" target="_blank">Watch Video</a>
+                </div>
+            </div>
+            <!-- Add more items as needed -->
+        </div>
+    </section>
+
+    <!-- Equipment Section -->
+    <section id="equipment">
+        <h2>Equipment</h2>
+        <div class="equipment-grid">
+            <!-- Add your gear here - Use images for icons -->
+            <div class="equipment-item">
+                <img src="https://i.postimg.cc/yxTDCY9N/Screenshot-2025-10-11-at-4-41-33-AM.png" alt="Main Cameras">
+                <h3>Lumix s5</h3>
+                <p>Main cinematography camera for 5.9K videos.</p>
+            </div>
+            <div class="equipment-item">
+                <img src="https://i.postimg.cc/ZRSYYzJm/Fc-N0-Ts-RXEAIPDYd.jpg" alt="B-Cam">
+                <h3>A7R III</h3>
+                <p>Professional Camera for photos.</p>
+            </div>
+            <div class="equipment-item">
+                <img src="https://i.postimg.cc/c1h26Gdp/Screenshot-2025-10-11-at-4-29-05-AM.jpg" alt="Lenses">
+                 <h3>50mm T2.0 Cine</h3>
+                  <h3>35mm T2.0 Cine</h3>
+                  <h3>Lumix 20-60mm 3.5-5.6</h3>
+                   <h3>Sigma 24-70mm f/2.8</h3>
+                <p></p>
+            </div>
+            <div class="equipment-item">
+                <img src="https://i.postimg.cc/MZswNQf6/thumbnail-webp.webp" alt="Editing Software">
+                <h3>DaVinci Resolve Studio</h3>
+                <h3>Final Cut Pro</h3>
+                <h3>After effects</h3>
+                <h3>Adobe Edition</h3>
+                <p></p>
+            </div>
+            <!-- Add more as needed -->
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Ready to bring your project to life? Get in touch!</p>
+        <form action="https://formspree.io/f/mrbyyyny" method="POST"> <!-- Replace with your Formspree endpoint -->
+            <input type="text" name="name" placeholder="Your Name" required>
+            <input type="email" name="email" placeholder="Your Email" required>
+            <textarea name="message" rows="5" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        <div class="social-links">
+            <!-- Add your social links -->
+            <a href="https://instagram.com/belal.m98" target="_blank">Instagram</a>
+            <a href="https://www.youtube.com/@Ak.98" target="_blank">YouTube</a>
+            <a href="https://wa.me/9647736342484" target="_blank">WhatsApp</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Belal Mohammad. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Simple scroll effect for nav background
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.style.background = 'rgba(0, 0, 0, 0.95)';
+            } else {
+                nav.style.background = 'rgba(0, 0, 0, 0.9)';
+            }
+        });
+
+        // Fade-in animation for sections on scroll
